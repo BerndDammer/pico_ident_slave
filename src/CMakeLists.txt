@@ -30,6 +30,11 @@ add_executable(pico_ident_slave pico_ident_slave.c )
 pico_set_program_name(pico_ident_slave "pico_ident_slave")
 pico_set_program_version(pico_ident_slave "0.1")
 
+
+pico_generate_pio_header(oc_protocol oc_protocol.pio)
+
+
+
 pico_enable_stdio_uart(pico_ident_slave 1)
 pico_enable_stdio_usb(pico_ident_slave 0)
 
@@ -47,6 +52,7 @@ target_include_directories(pico_ident_slave PRIVATE
 target_link_libraries(pico_ident_slave 
         hardware_pio
         hardware_timer
+	hardware_dma
         )
 
 pico_add_extra_outputs(pico_ident_slave)

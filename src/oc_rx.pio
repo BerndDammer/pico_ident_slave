@@ -1,0 +1,33 @@
+// oc_rx.pio
+
+.program oc_rx
+.side_set 1
+
+; PINDIRS is the pin for setting the input direction (used for setting line to high-Z)
+; DATA_PIN is the pin for reading the data (GPIO 22 in this case)
+
+public entry:
+    ; Wait for the first start bit (line goes low)
+    wait 0 pin 0       ; Wait for the input pin to be low (1st Start Bit)
+
+    ; Delay for 1.5 bit times to align to the middle of the next bit
+    set x, 13 [1]
+    jmp x-- continue   [1]
+continue:
+
+.wrap_target
+    ; Clocking in all 14 bits (4 start, 8 data, 2 stop)
+    in pins, 1         ; Read one bit from the input pin (data_pin)
+
+    ; Total 14 bits. We only care about bits 5-12 (the data).
+    ; We can discard the rest by using 'y' or 'x' as counters.
+    ; This is a simplified approach: clock in 14 times and discard the 6 non-data bits.
+
+    set x, 13          ; Total of 14 bits to read (0 to 13)
+loop_read:
+    in pins, 1         [1] ; Read 1 bit, takes 2 cycles (with delay)
+    jmp x-- loop_read
+
+    ; After 14 bits, the 8 data bits are in the ISR.
+    push block
+.wrap

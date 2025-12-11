@@ -1,0 +1,36 @@
+// oc_tx.pio
+
+.program oc_tx
+.side_set 1
+
+; DATA_PIN is the single I/O pin (GPIO 22).
+; Data is output LSB first.
+
+.wrap_target
+    pull block         ; Wait for data from the TX FIFO
+
+    ; Set up the output pin for transmitting (set dir to out)
+    set pindirs, 1     side 0 [1] ; side 0: output low (Start bit)
+
+    ; 4 Start Bits (all low)
+    set x, 3           ; 4 cycles total (0 to 3)
+start_loop:
+    out null, 1        side 0 [1] ; Output low (takes 2 cycles)
+    jmp x-- start_loop
+
+    ; 8 Data Bits (LSB first)
+    set x, 7           ; 8 cycles total (0 to 7)
+data_loop:
+    out pins, 1        side 1 [1] ; Output data bit, then set to high (open collector)
+    jmp x-- data_loop
+
+    ; 2 Stop Bits (all high/open-collector)
+    set x, 1           ; 2 cycles total (0 to 1)
+stop_loop:
+    out null, 1        side 1 [1] ; Output high (open collector, takes 2 cycles)
+    jmp x-- stop_loop
+
+    ; Set back to input direction for RX (High-Z)
+    set pindirs, 0     side 1 [1]
+
+.wrap
