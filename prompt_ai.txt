@@ -1,0 +1,9 @@
+program for raspberry pi pico.
+use raspberry pi c/c++ sdk.
+gpio 22 is set as open collector.
+it recieves at gpio 26 eight bytes and answers with 8 bytes on the same line.
+the bit clock is 1 Megaherz.
+the bit sequence is 4 Startbits, 8 Databits with LSB first and 2 stoppbits.
+One pio unit shall be used for bit generation,
+The byte are transferred into ram by dma.
+after finishing the dma read an intrerrupt is generated and the answer is transmitted by dma to the pio and clocked out by a pio program.
