@@ -19,3 +19,35 @@ Master clock 1MHz
 Can be implemented by Raspi Pico with one PIO unit.
 Can be implemented by fpga. (????)
 Elements to be configured differ on which bus is simulated.
+
+Command sequence
+--------------------
+The first byte from CPU defines how many data byte are transmitted 
+after and how many reaction bytes are expected from the slaves.
+
+The quiet line is high means a one
+
+CPU Transmit byte:
+
+ 0 0 0 1 D0 D1 D2 D3 D4 D5 D6 D7 1 1
+
+A one after 3 0´s defines a write sequence
+The 0 1 after third 0 gives the slaves a timing sync edge
+
+CPU Recieve byte:
+
+ 0 0 0 0 1 D0 D1 D2 D3 D4 D5 D6 D7 1 1
+
+A one after 4 0´s defines a read sequence
+The 0 1 after 4 0´s gives the slaves a timing sync edge
+
+All slaves but their bytes on the line.
+The byte on the line is the wired and of all connected slaves.
+If a slave want to put NOTHING in the answer, he has to answer with all 1´s.
+(necessary to hold all in sync).
+
+The CPU waits at least 5us between command and command data.
+The CPU waits at least 10us between request and answer.
+
+
+
