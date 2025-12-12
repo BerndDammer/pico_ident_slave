@@ -15,9 +15,9 @@ cmake_install.cmake
 *.map
 *.lst
 
-*.txt
-!prompt_ai.txt
-!src/CMakeLists.txt
+#*.txt
+#!prompt_ai.txt
+#!src/CMakeLists.txt
 
 #*.uf2
 

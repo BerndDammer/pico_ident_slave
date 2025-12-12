@@ -1,0 +1,18 @@
+Requirements
+-----------------
+
+Some cards on a bus with one cpu and more periperals make an initial autoconfiguration.
+Only one pin on each card is used.
+All connected by open collector.
+All dialogs are initiated by the cpu.
+Each card has a 64 bit unique identifier.
+
+The Bus has only all parallel winding.
+No special wiring or electronics.
+
+----
+
+Implementation Details
+-------------------
+Master clock 1MHz
+
