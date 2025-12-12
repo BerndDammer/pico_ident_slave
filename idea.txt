@@ -16,3 +16,6 @@ Implementation Details
 -------------------
 Master clock 1MHz
 
+Can be implemented by Raspi Pico with one PIO unit.
+Can be implemented by fpga. (????)
+Elements to be configured differ on which bus is simulated.
