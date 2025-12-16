@@ -1,0 +1,30 @@
+Taking all edges of a single OC-Line
+
+Time From first 1-0 to ne´xt risning 1 Bit
+
+Time first 1-0 to next 1-0 2 Bit
+
+
+
+00 Base 1
+
+1111 1 
+0011 0
+
+110 00
+1110 01
+11110 10
+111110 11
+
+-\__/----\
+BASE1 2 minimum low time
+HB 4^n 2 clk per bit
+BASE2 2 minimum high time
+LB 2^n 1 clk per bit
+
+sending 000
+\__/--\
+
+sending 111
+\____/-----\
+
